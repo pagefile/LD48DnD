@@ -61,11 +61,25 @@ Could have enemies spawn over time too to keep the player from lingering in a
 sector for too long.
 
 
-==================================================================
+Story
+There's a plot now!
+An anomaly was detected recently emitting a range of radiation not seen from any
+natural source. Accompanying this anomaly were anomalous space ships
+(clever name!) that attack other ships indiscrimiately. You're mission (the
+player) is to trek out into deep space and discover what this anomaly is and
+possibly even put a stop to the attacks.
 
+Progression
+Jump from one system to another in order to advance towards the anomaly.
+Star systems aren't targeted for jumps. Instead, the direction of the anomaly
+is shown in the hud, and the player must align them selves as best they can
+when making a jump. When you're close enough, there will be a certain margin of
+error that is allowed when aiming, and if the player would otherwise over shoot
+the anomaly, they are dropped in the anomoly's sector instead.
 
-
-
-Deep sea. Pilot(?) a submarine to the bottom of the ocean for...treasure?
-Need to upgrade it as you go deeper to survive the depths and like sea
-creatures or something.
+Fuel must be gathered to make jumps. Nebulae (I know, these are way smaller
+than actual nebuae) are the safest way to gather fuel but also the slowest.
+debris and derilect ships can contain fuel. Destroying enemy ships is a good
+way to get fuel. They will almost always drop some. Asteroids can also have
+fuel. If too long is spent in one sector, Anomalous Space Ships will warp in and
+start attacking the player relentlessly, and they don't drop loot or fuel.
