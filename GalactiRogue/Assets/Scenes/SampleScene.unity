@@ -744,32 +744,20 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 90, y: 0, z: 0}
---- !u!1773428102 &963194229
-ParentConstraint:
+--- !u!114 &963194229
+MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 963194225}
   m_Enabled: 1
-  m_Weight: 1
-  m_TranslationAtRest: {x: 0, y: 30, z: 0}
-  m_RotationAtRest: {x: 90, y: 0, z: 0}
-  m_TranslationOffsets:
-  - {x: 0, y: 30, z: 0}
-  m_RotationOffsets:
-  - {x: 89.980225, y: 0, z: 0}
-  m_AffectTranslationX: 1
-  m_AffectTranslationY: 1
-  m_AffectTranslationZ: 1
-  m_AffectRotationX: 0
-  m_AffectRotationY: 0
-  m_AffectRotationZ: 0
-  m_IsContraintActive: 1
-  m_IsLocked: 1
-  m_Sources:
-  - sourceTransform: {fileID: 1315466717}
-    weight: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 352de0b96b217ac4ea16f0e73bba348d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _target: {fileID: 1315466717}
+  _offset: {x: 0, y: 30, z: 0}
 --- !u!199 &963194230
 ParticleSystemRenderer:
   serializedVersion: 6
@@ -5540,8 +5528,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c5f0288e6affe964cbf4aa3a6a3870bb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _acceleration: 5
-  _turnAccel: 2
+  _engine: {fileID: 11400000, guid: f2f72f5b4d763134884e337e81bbf9ea, type: 2}
 --- !u!54 &1315466719
 Rigidbody:
   m_ObjectHideFlags: 0

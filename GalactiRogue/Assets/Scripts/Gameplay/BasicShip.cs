@@ -6,9 +6,7 @@ using UnityEngine;
 public class BasicShip : MonoBehaviour, IBasicShipControl
 {
     [SerializeField]
-    private float _acceleration = 1f;
-    [SerializeField]
-    private float _turnAccel = 2f;
+    private EngineStats _engine = default;
 
     private Rigidbody _rb;
     private float _throttle = 0f;
@@ -78,7 +76,7 @@ public class BasicShip : MonoBehaviour, IBasicShipControl
 
     void FixedUpdate()
     {
-        float accel = _acceleration * _throttle;
+        float accel = _engine.Acceleration * _throttle;
         _rb.AddForce(transform.forward * accel, ForceMode.Acceleration);
 
         // I don't understand what is happening here, but this is the only form of the function call that
@@ -88,8 +86,9 @@ public class BasicShip : MonoBehaviour, IBasicShipControl
         // physics of it are all basically the same, except the camera doesn't wig out.
         // This is also a formula I'd use with ForceMode.Impulse and not ForceMode.Accerlation, so this
         // Really is a case of "My code works and I don't understand why". If it works don't
-        // fix it? 
-        float turn = _turnAccel * _latAxis;
+        // fix it?
+        // TODO: Test the more "proper" AddTorque call with the new OffsetCamera component
+        float turn = _engine.TurnAcceleration * _latAxis;
         _rb.AddTorque(Vector3.up * _latAxis * _rb.mass * Time.deltaTime, ForceMode.Acceleration);
 
         // Process "Full Stop" physics (more like flight assist/E-Brake)
@@ -104,7 +103,7 @@ public class BasicShip : MonoBehaviour, IBasicShipControl
                 // come to a full stop
                 forward = transform.forward;
             }
-            Vector3 counterVelocity = (forward  * speed)  - velocity;
+            Vector3 counterVelocity = _engine.AssistRating * ((forward  * speed)  - velocity);
             _rb.AddForce(counterVelocity, ForceMode.Acceleration);
             _rb.AddTorque(-_rb.angularVelocity * _rb.mass * Time.deltaTime, ForceMode.Acceleration);
         }
