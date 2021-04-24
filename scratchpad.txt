@@ -39,6 +39,8 @@ Secondary weapon is ammo based (maybe ammo? Make it ballistic/kinetic at least)
 Engines control speed and turning
 shields are regnerating health on top of the hull
 armor is damage reduction to the hull
+Hardpoints are upgraded through loot. Hull is upgraded and repaird by scrapping
+loot. FTL is also upgraded through scrapping loot. 
 
 multiple levels to weapons? Have a pulse laser and find another pulse laser,
 does it upgrade?
@@ -54,6 +56,9 @@ Maybe also have an FTL drive that can be upgraded to jump farther each time.
 The goal could be a distance traveled rather than a certain number of sectors.
 Upgrades would let you jump farther, but them difficulty goes up quicker and you
 might not have time to upgrade other components fast enough
+
+Could have enemies spawn over time too to keep the player from lingering in a
+sector for too long.
 
 
 ==================================================================
