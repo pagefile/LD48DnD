@@ -14,6 +14,7 @@ public class BasicShip : MonoBehaviour, IBasicShipControl
     private float _throttle = 0f;
     private float _latAxis = 0f;
     private float _turnAxis = 0f;
+    private bool _fullStop = false;
 
     #region IBasicShipControl Implementation
     public void Thrust(float amount)
@@ -53,14 +54,12 @@ public class BasicShip : MonoBehaviour, IBasicShipControl
 
     public void FullStopUp()
     {
-        _rb.drag = 0f;
-        _rb.angularDrag = 0f;
+        _fullStop = false;
     }
 
     public void FullStopDown()
     {
-        _rb.drag = 0.5f;
-        _rb.angularDrag = 0.5f;
+        _fullStop = true;
     }
     #endregion
 
@@ -82,8 +81,6 @@ public class BasicShip : MonoBehaviour, IBasicShipControl
         float accel = _acceleration * _throttle;
         _rb.AddForce(transform.forward * accel, ForceMode.Acceleration);
 
-        float turn = _turnAccel * _latAxis;
-
         // I don't understand what is happening here, but this is the only form of the function call that
         // gives me what I want. Using ForceMode.Impulse or ForceMode.Force causes the parent connstraint on
         // the camera to wig out and slingshot around while the ship is spinning. This doesn't
@@ -92,7 +89,27 @@ public class BasicShip : MonoBehaviour, IBasicShipControl
         // This is also a formula I'd use with ForceMode.Impulse and not ForceMode.Accerlation, so this
         // Really is a case of "My code works and I don't understand why". If it works don't
         // fix it? 
+        float turn = _turnAccel * _latAxis;
         _rb.AddTorque(Vector3.up * _latAxis * _rb.mass * Time.deltaTime, ForceMode.Acceleration);
+
+        // Process "Full Stop" physics (more like flight assist/E-Brake)
+        if(_fullStop)
+        {
+            Vector3 velocity = _rb.velocity;
+            float speed = velocity.magnitude;
+            Vector3 forward = Vector3.zero;
+            if(_throttle > 0f)
+            {
+                // If the ship is under powered flight, dampen the newtonian physics, otherwise
+                // come to a full stop
+                forward = transform.forward;
+            }
+            Vector3 counterVelocity = (forward  * speed)  - velocity;
+            _rb.AddForce(counterVelocity, ForceMode.Acceleration);
+            _rb.AddTorque(-_rb.angularVelocity * _rb.mass * Time.deltaTime, ForceMode.Acceleration);
+        }
+        
+
     }
     #endregion
 }
