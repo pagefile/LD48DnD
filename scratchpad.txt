@@ -1,0 +1,50 @@
+Theme Deeper and Deeper
+
+Things that are deep
+sea/ocean
+space
+Earth/ground
+
+Deep trouble? Could be like a wave based shooter maybe...
+deeper trouble as you go on
+
+Roguelike space shooter? Going into wormholes to go deeper to the core
+of a galaxy? Sounds kinda neat. Get some loot and power ups and what not.
+
+I like the roguelike. Go to the core of the galaxy, travel into the
+super massive black whole (that's realistic right?) and kill the boss that
+is for some reason living there. It all makes sense!
+(a more realistic goal for the game jam is just getting to the black hole)
+
+Area hazards:
+Asteroid fields - lots of asteroids to bump into and damage your ship.
+But also lots of opportunities for loot
+
+Pirate Sector - lots of pirates that want to kill you
+
+Deep Space - Not a lot going on. Some enemies, some asteroids, but mostly calm
+
+Close Encounter - close encounter with a star. Will slowly damage ship, though
+there are safe areas. Risky, but could contain good rewards too.
+
+Alien Sector - Aliens. Not initially hostile, but their stuff is good. Will
+you kill them for teir technology?
+
+Only one ship. Customizable with loot drops from asteroids, aliens, and pirates,
+or debris floating in space.
+
+Ship hardpoints: Main weapon, secondary weapon, engines, shield, armor
+Main weapon is energy based with a cool down to fire.
+Secondary weapon is ammo based (maybe ammo? Make it ballistic/kinetic at least)
+Engines control speed and turning
+shields are regnerating health on top of the hull
+armor is damage reduction to the hull
+
+multiple levels to weapons? Have a pulse laser and find another pulse laser,
+does it upgrade?
+
+What about controls?
+
+Deep sea. Pilot(?) a submarine to the bottom of the ocean for...treasure?
+Need to upgrade it as you go deeper to survive the depths and like sea
+creatures or something.
