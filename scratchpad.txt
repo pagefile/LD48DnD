@@ -45,6 +45,22 @@ does it upgrade?
 
 What about controls?
 
+
+HUD based radar ring around the edge of the screen for tracking things.
+Tractor beam field thing for corraling loot. Loot that is close enough will
+appear in the loadout screen so you can change out ship parts.
+Loot can be scrapped to repair hull
+Maybe also have an FTL drive that can be upgraded to jump farther each time.
+The goal could be a distance traveled rather than a certain number of sectors.
+Upgrades would let you jump farther, but them difficulty goes up quicker and you
+might not have time to upgrade other components fast enough
+
+
+==================================================================
+
+
+
+
 Deep sea. Pilot(?) a submarine to the bottom of the ocean for...treasure?
 Need to upgrade it as you go deeper to survive the depths and like sea
 creatures or something.
