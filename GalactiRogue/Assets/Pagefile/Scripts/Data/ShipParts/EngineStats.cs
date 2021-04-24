@@ -28,4 +28,9 @@ public class EngineStats : ScriptableObject
     {
         get { return _assistRating; }
     }
+    
+    public string Name
+    {
+        get { return _name; }
+    }
 }
