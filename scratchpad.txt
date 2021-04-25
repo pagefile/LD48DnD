@@ -30,6 +30,8 @@ there are safe areas. Risky, but could contain good rewards too.
 Alien Sector - Aliens. Not initially hostile, but their stuff is good. Will
 you kill them for teir technology?
 
+Nebula Sector - Mostly nebula. Smaller chance of asteroids and bases
+
 Only one ship. Customizable with loot drops from asteroids, aliens, and pirates,
 or debris floating in space.
 
@@ -102,3 +104,13 @@ idea for generating sectors.
 Sector parameters:
 Type
 Density
+
+
+==================================
+Potential POI
+
+Nebula (passively gain fuel)
+Convoy (ships either good or bad that patrol the sector slowly)
+Asteroid cluster (asteroids can be destroyed for fuel and scrap)
+Starbase (good or bad, produces ships of same type, can give lots of scrap
+	and fuel if destroyed)

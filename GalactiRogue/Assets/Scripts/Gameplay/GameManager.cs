@@ -35,7 +35,7 @@ public class GameManager : MonoBehaviour
         Debug.Log("Scene loaded");
 
         // Generate the sector
-        sectorGrid = SectorGenerator.GenerateSectorGrid(1000f, 100f, 10f, _sector.POIList.Count);
+        sectorGrid = SectorGenerator.GenerateSectorGrid(_sector);
         for(int i = 0; i < sectorGrid.GetLength(0); i++)
         {
             for(int j = 0; j < sectorGrid.GetLength(1); j++)

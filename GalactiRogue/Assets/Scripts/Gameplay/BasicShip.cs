@@ -13,6 +13,7 @@ public class BasicShip : MonoBehaviour, IBasicShipControl
     private float _latAxis = 0f;
     private float _turnAxis = 0f;
     private bool _fullStop = false;
+    private Pagefile.Gameplay.Gun _mainWeapon = default;
 
     #region IBasicShipControl Implementation
     public void Thrust(float amount)
@@ -32,7 +33,12 @@ public class BasicShip : MonoBehaviour, IBasicShipControl
 
     public void MainWeaponTriggerDown()
     {
+        _mainWeapon.OnTriggerDown();
+    }
 
+    public void MainWeaponTriggerUp()
+    {
+        _mainWeapon.OnTriggerUp();
     }
 
     public void SecondaryWeaponTriggerDown()
@@ -40,10 +46,6 @@ public class BasicShip : MonoBehaviour, IBasicShipControl
 
     }
 
-    public void MainWeaponTriggerUp()
-    {
-
-    }
 
     public void SecondaryWeaponTriggerUp()
     {
@@ -66,6 +68,7 @@ public class BasicShip : MonoBehaviour, IBasicShipControl
     void Start()
     {
         _rb = GetComponent<Rigidbody>();
+        _mainWeapon = GetComponent<Pagefile.Gameplay.Gun>();
     }
 
     // Update is called once per frame

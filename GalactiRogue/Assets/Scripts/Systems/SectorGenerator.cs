@@ -8,18 +8,18 @@ public class SectorGenerator
     // cellSize is the size in meters of each individual grid unit
     // density is the chance for a POI. Nothing is represented by a negative number, otherwise a valid array index is used
     // maxIndex is the highest index for the array containing POIs to generate from
-    public static int[,] GenerateSectorGrid(float size, float cellSize, float density, int maxIndex)
+    public static int[,] GenerateSectorGrid(SectorData sector)
     {
-        int gridDimensions = (int)(size / cellSize);
+        int gridDimensions = (int)(sector.TotalSize / sector.GridSize);
         Debug.Log("Generating sector with grid dimensions " + gridDimensions + "x" + gridDimensions);
         int[,] grid = new int[gridDimensions, gridDimensions];
         for(int i = 0; i < gridDimensions; i++)
         {
             for(int j = 0;  j < gridDimensions; j++)
             {
-                if(Random.value * 100f <= density)
+                if(Random.value * 100f <= sector.Density)
                 {
-                    grid[i, j] = Random.Range(0, maxIndex);
+                    grid[i, j] = Random.Range(0, sector.POIList.Count);
                 }
                 else
                 {
