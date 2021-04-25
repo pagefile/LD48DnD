@@ -20,8 +20,8 @@ public class PlayerShipController : MonoBehaviour
             return;
         }
 
-        _ship.Thrust(Input.GetAxis("Throttle"));
-        _ship.LateralThrust(Input.GetAxis("Lateral"));
+        _ship.Thrust(Input.GetAxis("Vertical"));
+        _ship.LateralThrust(Input.GetAxis("Horizontal"));
         if(Input.GetButtonDown("PrimaryFire"))
         {
             _ship.MainWeaponTriggerDown();
