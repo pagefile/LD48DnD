@@ -83,3 +83,22 @@ debris and derilect ships can contain fuel. Destroying enemy ships is a good
 way to get fuel. They will almost always drop some. Asteroids can also have
 fuel. If too long is spent in one sector, Anomalous Space Ships will warp in and
 start attacking the player relentlessly, and they don't drop loot or fuel.
+
+
+============================================
+
+Sector layout
+Probably going to generate points of interests for sectors in a grid based
+fashion based on spatial coordinates. So say a sector is 1 square kilometer
+divided into 10 square meter chunks. Each 10 square meter chunk would have a
+chance of generating a POI based on a percentage determining how sparse or dense
+a sector is (with at least a minimum number of POI so the player doesn't get
+screwed by RNG). The POI is generated in a random spot within that 10 square
+meters. The POI themselves can be prefabs, either from a library of prefabs,
+or prefabs that can generate even more stuff based on what they are. The scale
+here isn't final, just numbers off the top of my head, but this is a general
+idea for generating sectors.
+
+Sector parameters:
+Type
+Density
