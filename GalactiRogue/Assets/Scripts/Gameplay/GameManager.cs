@@ -20,6 +20,7 @@ public class GameManager : MonoBehaviour
         DontDestroyOnLoad(_player);
         DontDestroyOnLoad(Camera.main);
         DontDestroyOnLoad(gameObject);
+        MessagePublisher.Instance.Subscribe(typeof(WarpSuccessMessage), WarpSuccessfulHandler);
         LoadNextSector();
     }
 
@@ -49,9 +50,12 @@ public class GameManager : MonoBehaviour
         }
     }
 
-    // Update is called once per frame
-    void Update()
+    private void WarpSuccessfulHandler(Message msg)
     {
-
+        // Succesful warp! Set up the next sector
+        WarpSuccessMessage warpMsg = msg as WarpSuccessMessage;
+        MessagePublisher.Instance.PublishImmediate(new POIClearMessage(this));
+        _player.transform.position = Vector3.zero;
+        LoadNextSector();
     }
 }

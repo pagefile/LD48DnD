@@ -46,5 +46,13 @@ public class PlayerShipController : MonoBehaviour
         {
             _ship.FullStopUp();
         }
+        if(Input.GetButtonDown("Warp"))
+        {
+            _ship.EngageWarp();
+        }
+        else if(Input.GetButtonUp("Warp"))
+        {
+            _ship.DisengageWarp();
+        }
     }
 }

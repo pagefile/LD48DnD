@@ -13,4 +13,6 @@ public interface IBasicShipControl
     void MainWeaponTriggerUp();
     void SecondaryWeaponTriggerDown();
     void SecondaryWeaponTriggerUp();
+    void EngageWarp();
+    void DisengageWarp();
 }

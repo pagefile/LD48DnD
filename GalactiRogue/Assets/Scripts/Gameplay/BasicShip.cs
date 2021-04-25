@@ -12,15 +12,41 @@ public class BasicShip : MonoBehaviour, IBasicShipControl
     private float _maxFuel = 1000f;
     [SerializeField]
     private float _fuelCollectionRate = 5f; // should really be on the nebula, but I'll sort that out later
+    [SerializeField]
+    private float _minimumJump = 100f; // measured in units of fuel
+    [SerializeField]
+    private float _maximumJump = 200f; // measured in units of fuel
 
     private Rigidbody _rb;
     private float _throttle = 0f;
     private float _latAxis = 0f;
     private float _turnAxis = 0f;
     private bool _fullStop = false;
+    private bool _warpEngaged = false;
+    private float _fuelForWarp = 0f;
     
     private Pagefile.Gameplay.Gun _mainWeapon = default;
     private float _currentFuel = 0f;
+
+    public void AddFuel(float amount)
+    {
+        _currentFuel += amount;
+        if(_currentFuel > _maxFuel)
+        {
+            _currentFuel = _maxFuel;
+        }
+        MessagePublisher.Instance.PublishMessage(new FuelUpdateMessage(this, _currentFuel));
+    }
+
+    public void SubtractFuel(float amount)
+    {
+        _currentFuel -= amount;
+        if(_currentFuel < 0f)
+        {
+            _currentFuel = 0f;
+        }
+        MessagePublisher.Instance.PublishMessage(new FuelUpdateMessage(this, _currentFuel));
+    }
 
     #region IBasicShipControl Implementation
     public void Thrust(float amount)
@@ -53,7 +79,6 @@ public class BasicShip : MonoBehaviour, IBasicShipControl
 
     }
 
-
     public void SecondaryWeaponTriggerUp()
     {
 
@@ -68,6 +93,24 @@ public class BasicShip : MonoBehaviour, IBasicShipControl
     {
         _fullStop = true;
     }
+
+    public void EngageWarp()
+    {
+        _warpEngaged = true;
+        // This really needs a different name
+    }
+
+    public void DisengageWarp()
+    {
+        _warpEngaged = false;
+        if(_fuelForWarp >= _minimumJump)
+        {
+            // warp to new sector yay!
+            _rb.velocity = Vector3.zero;
+            MessagePublisher.Instance.PublishMessage(new WarpSuccessMessage(this, _fuelForWarp));
+        }
+        _fuelForWarp = 0f;
+    }
     #endregion
 
     #region Unity Functions
@@ -81,11 +124,34 @@ public class BasicShip : MonoBehaviour, IBasicShipControl
     // Update is called once per frame
     void Update()
     {
-        // TODO: Probably shoot the guns or something
+        if(_warpEngaged)
+        {
+            // Check the fuel level. Can't warp with less than 100 fuel because I said so
+            if(_currentFuel < _minimumJump && _fuelForWarp <= 0f)
+            {
+                // nope.avi
+                DisengageWarp();
+                return;
+            }
+            if(_currentFuel <= 0f || _fuelForWarp >= _maximumJump)
+            {
+                // We had fuel but we've used it all for warp
+                DisengageWarp();
+            }
+            float fuelTransfer = 25f * Time.deltaTime;
+            _fuelForWarp += fuelTransfer;
+            SubtractFuel(fuelTransfer);
+        }
     }
 
     void FixedUpdate()
     {
+        if(_warpEngaged)
+        {
+            _rb.AddForce(_rb.transform.forward * 5000f);
+            ApplyFlightAssist();
+            return;
+        }
         float accel = _engine.Acceleration * _throttle;
         _rb.AddForce(transform.forward * accel, ForceMode.Acceleration);
 
@@ -104,19 +170,24 @@ public class BasicShip : MonoBehaviour, IBasicShipControl
         // Process "Full Stop" physics (more like flight assist/E-Brake)
         if(_fullStop)
         {
-            Vector3 velocity = _rb.velocity;
-            float speed = velocity.magnitude;
-            Vector3 forward = Vector3.zero;
-            if(_throttle > 0f)
-            {
-                // If the ship is under powered flight, dampen the newtonian physics, otherwise
-                // come to a full stop
-                forward = transform.forward;
-            }
-            Vector3 counterVelocity = _engine.AssistRating * ((forward  * speed)  - velocity);
-            _rb.AddForce(counterVelocity, ForceMode.Acceleration);
-            _rb.AddTorque(-_rb.angularVelocity * _rb.mass * Time.deltaTime, ForceMode.Acceleration);
+            ApplyFlightAssist();
         }
+    }
+
+    void ApplyFlightAssist()
+    {
+        Vector3 velocity = _rb.velocity;
+        float speed = velocity.magnitude;
+        Vector3 forward = Vector3.zero;
+        if(_throttle > 0f || _warpEngaged)
+        {
+            // If the ship is under powered flight, dampen the newtonian physics, otherwise
+            // come to a full stop
+            forward = transform.forward;
+        }
+        Vector3 counterVelocity = _engine.AssistRating * ((forward * speed) - velocity);
+        _rb.AddForce(counterVelocity, ForceMode.Acceleration);
+        _rb.AddTorque(-_rb.angularVelocity * _rb.mass * Time.deltaTime, ForceMode.Acceleration);
     }
 
     void LateUpdate()
@@ -128,12 +199,7 @@ public class BasicShip : MonoBehaviour, IBasicShipControl
     {
         if(other.CompareTag("Nebula"))
         {
-            _currentFuel += _fuelCollectionRate * Time.deltaTime;
-            if(_currentFuel > _maxFuel)
-            {
-                _currentFuel = _maxFuel;
-            }
-            MessagePublisher.Instance.PublishMessage(new FuelUpdateMessage(this, _currentFuel));
+            AddFuel(_fuelCollectionRate * Time.deltaTime);
         }
     }
 

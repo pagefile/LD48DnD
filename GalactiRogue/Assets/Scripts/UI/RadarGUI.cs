@@ -18,6 +18,7 @@ public class RadarGUI : MonoBehaviour
     {
         _pingList = new List<RadarPingGUI>();
         MessagePublisher.Instance.Subscribe(typeof(POICreatedMessage), POICreatedHandler);
+        MessagePublisher.Instance.Subscribe(typeof(POIClearMessage), POIClearHandler);
         _mainCamera = Camera.main;
     }
 
@@ -35,6 +36,15 @@ public class RadarGUI : MonoBehaviour
             RectTransform rTransform = pingObj.GetComponent<RectTransform>();
             rTransform.position = _mainCamera.WorldToScreenPoint(poiMsg.POI.transform.position - _playerShip.transform.position);
         }
+    }
+
+    private void POIClearHandler(Message msg)
+    {
+        foreach(RadarPingGUI ping in _pingList)
+        {
+            Destroy(ping.gameObject);
+        }
+        _pingList.Clear();
     }
 
     private void Update()

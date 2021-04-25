@@ -5471,12 +5471,18 @@ MonoBehaviour:
     type: 3}
   m_PrefabInstance: {fileID: 1511605295}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
+  m_GameObject: {fileID: 1593956036}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: c5f0288e6affe964cbf4aa3a6a3870bb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!1 &1593956036 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 7078680754496340009, guid: eedb96133c6d45f459aadbad091f68a6,
+    type: 3}
+  m_PrefabInstance: {fileID: 1511605295}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1682538235
 GameObject:
   m_ObjectHideFlags: 0
@@ -5531,6 +5537,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1697113825}
+  - component: {fileID: 1697113826}
   m_Layer: 5
   m_Name: RadarGUI
   m_TagString: Untagged
@@ -5557,3 +5564,18 @@ RectTransform:
   m_AnchoredPosition: {x: 0.0087891, y: -0.010727}
   m_SizeDelta: {x: 1275.9824, y: 637.97864}
   m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &1697113826
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1697113824}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1090a1a68f6957845ab54db144cc5950, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _playerShip: {fileID: 1593956036}
+  _radarPingPrefab: {fileID: 6730289356201882378, guid: ebd96c4e4bfa3e84a99a85e843f34d08,
+    type: 3}
