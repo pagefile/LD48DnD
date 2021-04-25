@@ -107,8 +107,11 @@ public class BasicShip : MonoBehaviour, IBasicShipControl
             _rb.AddForce(counterVelocity, ForceMode.Acceleration);
             _rb.AddTorque(-_rb.angularVelocity * _rb.mass * Time.deltaTime, ForceMode.Acceleration);
         }
-        
+    }
 
+    void LateUpdate()
+    {
+        _rb.inertiaTensorRotation = new Quaternion(0f, _rb.inertiaTensorRotation.y, 0f, _rb.inertiaTensorRotation.w);
     }
     #endregion
 }
