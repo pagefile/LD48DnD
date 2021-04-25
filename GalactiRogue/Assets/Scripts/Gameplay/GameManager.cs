@@ -42,7 +42,7 @@ public class GameManager : MonoBehaviour
             {
                 if(sectorGrid[i, j] >= 0)
                 {
-                    Vector3 pos = new Vector3(i * 100f, 0f, j * 100f) - new Vector3(550f, 0f, 550f);
+                    Vector3 pos = new Vector3(i * _sector.GridSize, 0f, j * _sector.GridSize) - new Vector3(_sector.TotalSize / 2f, 0f, _sector.TotalSize / 2f);
                     Instantiate(_sector.POIList[sectorGrid[i, j]], pos, Quaternion.identity);
                 }
             }
