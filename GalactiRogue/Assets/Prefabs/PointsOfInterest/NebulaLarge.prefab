@@ -9,9 +9,10 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4498061544615295005}
-  m_Layer: 0
+  - component: {fileID: 8395722091476068978}
+  m_Layer: 8
   m_Name: NebulaLarge
-  m_TagString: Untagged
+  m_TagString: Nebula
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -31,6 +32,19 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!135 &8395722091476068978
+SphereCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4498061544615295002}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Radius: 200
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &5679190719913616311
 GameObject:
   m_ObjectHideFlags: 0
@@ -42,7 +56,7 @@ GameObject:
   - component: {fileID: 3511548047180359174}
   - component: {fileID: 5891194360768599476}
   - component: {fileID: 64076896051285533}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: ParticleSystem
   m_TagString: Untagged
   m_Icon: {fileID: 0}

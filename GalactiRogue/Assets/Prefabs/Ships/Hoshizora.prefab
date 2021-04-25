@@ -67,6 +67,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _engine: {fileID: 11400000, guid: f2f72f5b4d763134884e337e81bbf9ea, type: 2}
+  _maxFuel: 1000
+  _fuelCollectionRate: 0.2
 --- !u!114 &7078680754496339989
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -1,19 +1,26 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Pagefile.System;
 
 [RequireComponent(typeof(Rigidbody))]
 public class BasicShip : MonoBehaviour, IBasicShipControl
 {
     [SerializeField]
     private EngineStats _engine = default;
+    [SerializeField]
+    private float _maxFuel = 1000f;
+    [SerializeField]
+    private float _fuelCollectionRate = 5f; // should really be on the nebula, but I'll sort that out later
 
     private Rigidbody _rb;
     private float _throttle = 0f;
     private float _latAxis = 0f;
     private float _turnAxis = 0f;
     private bool _fullStop = false;
+    
     private Pagefile.Gameplay.Gun _mainWeapon = default;
+    private float _currentFuel = 0f;
 
     #region IBasicShipControl Implementation
     public void Thrust(float amount)
@@ -116,5 +123,19 @@ public class BasicShip : MonoBehaviour, IBasicShipControl
     {
         _rb.inertiaTensorRotation = new Quaternion(0f, _rb.inertiaTensorRotation.y, 0f, _rb.inertiaTensorRotation.w);
     }
+
+    void OnTriggerStay(Collider other)
+    {
+        if(other.CompareTag("Nebula"))
+        {
+            _currentFuel += _fuelCollectionRate * Time.deltaTime;
+            if(_currentFuel > _maxFuel)
+            {
+                _currentFuel = _maxFuel;
+            }
+            MessagePublisher.Instance.PublishMessage(new FuelUpdateMessage(this, _currentFuel));
+        }
+    }
+
     #endregion
 }
