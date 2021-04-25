@@ -58,4 +58,13 @@ public class GameManager : MonoBehaviour
         _player.transform.position = Vector3.zero;
         LoadNextSector();
     }
+
+    private void Update()
+    {
+        if(Input.GetKeyDown(KeyCode.Escape))
+        {
+            // Quick and dirty way out
+            Application.Quit();
+        }
+    }
 }
