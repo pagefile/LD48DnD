@@ -7,6 +7,8 @@ public class GameManager : MonoBehaviour
 {
     [SerializeField]
     private BasicShip _player = default;
+    [SerializeField]
+    private SectorData _sector = default;
 
     private int[,] sectorGrid = null;
 
@@ -33,7 +35,18 @@ public class GameManager : MonoBehaviour
         Debug.Log("Scene loaded");
 
         // Generate the sector
-        sectorGrid = SectorGenerator.GenerateSectorGrid(1000f, 100f, 50f, 1);
+        sectorGrid = SectorGenerator.GenerateSectorGrid(1000f, 100f, 10f, _sector.POIList.Count);
+        for(int i = 0; i < sectorGrid.GetLength(0); i++)
+        {
+            for(int j = 0; j < sectorGrid.GetLength(1); j++)
+            {
+                if(sectorGrid[i, j] >= 0)
+                {
+                    Vector3 pos = new Vector3(i * 100f, 0f, j * 100f) - new Vector3(550f, 0f, 550f);
+                    Instantiate(_sector.POIList[sectorGrid[i, j]], pos, Quaternion.identity);
+                }
+            }
+        }
     }
 
     // Update is called once per frame
