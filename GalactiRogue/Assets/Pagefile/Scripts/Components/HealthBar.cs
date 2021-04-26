@@ -5,54 +5,59 @@ using Pagefile.Gameplay;
 
 namespace Pagefile.Components
 {
-    // TODO: If Entity is a required component for HealthBar, why not just add health
-    // funcionality to Entity?
-    [RequireComponent(typeof(Entity))]
     public class HealthBar : MonoBehaviour, IDamageable
     {
         #region Editor Variables
         [SerializeField]
-        private float MaxHealth = 100.0f;
+        private float _maxHealth = 100.0f;
+        [SerializeField]
+        private bool _destroyOnDeath = true;
+        #endregion
+
+        #region Public Variables
+        public delegate void HealthBarEvent(HealthBar hbar);
+        public event HealthBarEvent OnDeath;
         #endregion
 
         #region Private Variables
         private float _currentHealth;
-        Entity Ent;
         #endregion
 
         #region Properties
         public float CurrentHealth => _currentHealth;
+        public float MaxHealth => _maxHealth;
         #endregion
 
         #region Unity functions
         // Use this for initialization
         void Start () 
         {
-            _currentHealth = MaxHealth;
-            Ent = GetComponent<Entity>();
+            _currentHealth = _maxHealth;
 	    }
         #endregion
 
         #region Public Methods
-
         public void TakeDamage(float amount)
         {
             _currentHealth -= amount;
             if(_currentHealth <= 0.0f)
             {
-                Ent.Kill();
+                OnDeath?.Invoke(this);
+                if(_destroyOnDeath)
+                {
+                    Destroy(gameObject);
+                }
             }
         }
         
         public void HealDamage(float amount)
         {
             _currentHealth += amount;
-            if(_currentHealth > MaxHealth)
+            if(_currentHealth > _maxHealth)
             {
-                _currentHealth = MaxHealth;
+                _currentHealth = _maxHealth;
             }
         }
-
         #endregion
     }
 }
