@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using Pagefile.Gameplay;
+using UnityEngine.Events;
 
 namespace Pagefile.Components
 {
@@ -15,8 +16,9 @@ namespace Pagefile.Components
         #endregion
 
         #region Public Variables
-        public delegate void HealthBarEvent(HealthBar hbar);
-        public event HealthBarEvent OnDeath;
+        [System.Serializable]
+        public class OnDeathEvent : UnityEvent<HealthBar> { }
+        public OnDeathEvent OnDeath;
         #endregion
 
         #region Private Variables
