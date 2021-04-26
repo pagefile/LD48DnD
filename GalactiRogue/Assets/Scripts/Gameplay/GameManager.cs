@@ -2,8 +2,8 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
-using Pagefile.System;
-using Pagefile.System.Messaging;
+using Pagefile.Systems;
+using Pagefile.Systems.Messaging;
 
 public class GameManager : MonoBehaviour
 {

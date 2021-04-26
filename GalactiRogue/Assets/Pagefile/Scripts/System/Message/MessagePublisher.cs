@@ -1,10 +1,10 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using Pagefile.System.Messaging;
+using Pagefile.Systems.Messaging;
 
 
-namespace Pagefile.System
+namespace Pagefile.Systems
 {
     // MessagePublisher
     // Used to publish messages to any number of subscribers to send data to other

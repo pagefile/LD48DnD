@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace  Pagefile.System.Messaging
+namespace  Pagefile.Systems.Messaging
 {
     public abstract class Message
     {

@@ -1,8 +1,8 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using Pagefile.System;
-using Pagefile.System.Messaging;
+using Pagefile.Systems;
+using Pagefile.Systems.Messaging;
 
 public class RadarGUI : MonoBehaviour
 {

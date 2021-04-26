@@ -1,7 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using Pagefile.System.Messaging;
+using Pagefile.Systems.Messaging;
 
 public class POICreatedMessage : Message
 {

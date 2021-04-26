@@ -1,7 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using Pagefile.System;
+using Pagefile.Systems;
 
 [RequireComponent(typeof(Rigidbody))]
 public class BasicShip : MonoBehaviour, IBasicShipControl
