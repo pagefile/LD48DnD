@@ -15,6 +15,7 @@ GameObject:
   - component: {fileID: 7078680754496339991}
   - component: {fileID: 7078680754496339988}
   - component: {fileID: 8609697616947722075}
+  - component: {fileID: -728184004701942579}
   m_Layer: 0
   m_Name: Hoshizora
   m_TagString: Untagged
@@ -69,6 +70,8 @@ MonoBehaviour:
   _engine: {fileID: 11400000, guid: f2f72f5b4d763134884e337e81bbf9ea, type: 2}
   _maxFuel: 1000
   _fuelCollectionRate: 10
+  _minimumJump: 100
+  _maximumJump: 200
 --- !u!114 &7078680754496339989
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -108,7 +111,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7bf73506289bfe743a9af943273a3bcb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  MaxHealth: 100
+  _maxHealth: 100
+  _destroyOnDeath: 1
+  OnDeath:
+    m_PersistentCalls:
+      m_Calls: []
 --- !u!114 &8609697616947722075
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -128,6 +135,23 @@ MonoBehaviour:
     type: 3}
   ProjectileSpeed: 75
   MuzzlePoint: {fileID: 4263527713756231492}
+--- !u!114 &-728184004701942579
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7078680754496340009}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7bf73506289bfe743a9af943273a3bcb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _maxHealth: 100
+  _destroyOnDeath: 1
+  OnDeath:
+    m_PersistentCalls:
+      m_Calls: []
 --- !u!1 &7387560235656971709
 GameObject:
   m_ObjectHideFlags: 0

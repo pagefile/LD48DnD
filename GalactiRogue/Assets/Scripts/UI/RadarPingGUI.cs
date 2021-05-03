@@ -6,7 +6,7 @@ using TMPro;
 public class RadarPingGUI : MonoBehaviour
 {
     [SerializeField]
-    private TMP_Text _distanceText;
+    private TMP_Text _distanceText = default;
 
     private GameObject _pingObject;
 

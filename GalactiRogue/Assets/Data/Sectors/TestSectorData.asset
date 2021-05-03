@@ -18,8 +18,7 @@ MonoBehaviour:
   _totalSize: 1000
   _gridSize: 100
   _POIList:
-  - {fileID: 6782010200206572615, guid: 0cac73abb89db3c4bb9ea82274456b31, type: 3}
-  - {fileID: 4249763387063763077, guid: c4abd35e4096e294590913d941e919c6, type: 3}
+  - {fileID: 5551371392677819679, guid: bbcefebda7edf224f984ecd41cf1dda0, type: 3}
   - {fileID: 6598161759905880326, guid: 13207d095ff8d1244a73496e8871acbe, type: 3}
   - {fileID: 8741500402542404830, guid: 3653ab1419928004fbaf972d6a38d4ba, type: 3}
   - {fileID: 4498061544615295002, guid: b9cd89a36ad7f4a49acb27c2de2a7c3d, type: 3}

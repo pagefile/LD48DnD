@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using Pagefile.Systems;
 using Pagefile.Systems.Messaging;
+using Pagefile.Components;
 
 public class RadarGUI : MonoBehaviour
 {
@@ -35,6 +36,11 @@ public class RadarGUI : MonoBehaviour
             _pingList.Add(ping);
             RectTransform rTransform = pingObj.GetComponent<RectTransform>();
             rTransform.position = _mainCamera.WorldToScreenPoint(poiMsg.POI.transform.position - _playerShip.transform.position);
+            HealthBar hbar = ping.PingObject.GetComponent<HealthBar>();
+            if(hbar != null)
+            {
+                hbar.OnDeath.AddListener(POIOnDeathHandler);
+            }
         }
     }
 
@@ -45,6 +51,21 @@ public class RadarGUI : MonoBehaviour
             Destroy(ping.gameObject);
         }
         _pingList.Clear();
+    }
+
+    private void POIOnDeathHandler(HealthBar hbar)
+    {
+        // Remove the radar ping
+        for(int i = 0; i < _pingList.Count; i++)
+        {
+            RadarPingGUI ping = _pingList[i];
+            if(ping.PingObject == hbar.gameObject)
+            {
+                _pingList.Remove(ping);
+                Destroy(ping.gameObject);
+                return;
+            }
+        }
     }
 
     private void Update()

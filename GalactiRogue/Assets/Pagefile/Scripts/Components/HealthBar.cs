@@ -35,6 +35,10 @@ namespace Pagefile.Components
         void Start () 
         {
             _currentHealth = _maxHealth;
+            if(OnDeath == null)
+            {
+                OnDeath = new OnDeathEvent();
+            }
 	    }
         #endregion
 
@@ -44,7 +48,7 @@ namespace Pagefile.Components
             _currentHealth -= amount;
             if(_currentHealth <= 0.0f)
             {
-                OnDeath?.Invoke(this);
+                OnDeath.Invoke(this);
                 if(_destroyOnDeath)
                 {
                     Destroy(gameObject);

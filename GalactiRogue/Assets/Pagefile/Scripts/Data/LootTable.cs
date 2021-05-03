@@ -1,12 +1,21 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Pagefile.Collections;
 
+// Copy/paste GameObject implementation os WeightedTable because Unity inspector
+// cannot serialize generics.
 namespace Pagefile.Data
 {
-    [CreateAssetMenu(fileName = "NewLootTable", menuName = "Data/Loot Table")]
+    [CreateAssetMenu(fileName = "NewLootTable", menuName = "Tables/Loot Table")]
     public class LootTable : ScriptableObject
     {
+        [SerializeField]
+        private List<LootTableItemData> _lootList = default;
+
+        private float _weightTotal;
+        private LootTableItemData _dummy;   // used in the binary search
+
         [System.Serializable]
         public class LootTableItemData
         {
@@ -55,21 +64,12 @@ namespace Pagefile.Data
             }
         }
 
-        [SerializeField]
-        private List<LootTableItemData> _lootList = default;
-
-        private float _weightTotal;
-        private LootTableItemData _dummy;   // used in the binary search
-
-        private void OnEnable()
+        public void OnEnable()
         {
             if(_lootList == null)
             {
                 return;
             }
-            // Set up the table so we can use a binary search on it
-            // You know....I don't think I even need to sort it
-            //_lootList.Sort(new LootTableItemData.SortComparer());
 
             // Set up min and max weight values
             float lastValue = 0f;
@@ -88,7 +88,7 @@ namespace Pagefile.Data
         }
 
         // Returns an empty list if there are no drops
-        public List<GameObject> RollForLoot(int rolls = 1)
+        public List<GameObject> RollOnTable(int rolls = 1)
         {
             List<GameObject> lootRolled = new List<GameObject>();
             for(int i = 0; i < rolls; i++)
@@ -104,4 +104,5 @@ namespace Pagefile.Data
             return lootRolled;
         }
     }
+
 }
