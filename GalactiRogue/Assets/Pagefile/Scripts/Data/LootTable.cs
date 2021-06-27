@@ -12,6 +12,8 @@ namespace Pagefile.Data
     {
         [SerializeField]
         private List<LootTableItemData> _lootList = default;
+        [SerializeField]
+        private List<GameObject> _guaranteedDrops = default;
 
         private float _weightTotal;
         private LootTableItemData _dummy;   // used in the binary search
@@ -90,7 +92,7 @@ namespace Pagefile.Data
         // Returns an empty list if there are no drops
         public List<GameObject> RollOnTable(int rolls = 1)
         {
-            List<GameObject> lootRolled = new List<GameObject>();
+            List<GameObject> lootRolled = _guaranteedDrops != null ? new List<GameObject>(_guaranteedDrops) :  new List<GameObject>();
             for(int i = 0; i < rolls; i++)
             {
                 _dummy.Weight = Random.Range(0, _weightTotal);
