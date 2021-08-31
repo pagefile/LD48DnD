@@ -15,4 +15,5 @@ public interface IBasicShipControl
     void SecondaryWeaponTriggerUp();
     void EngageWarp();
     void DisengageWarp();
+    GameObject GetControlled();
 }

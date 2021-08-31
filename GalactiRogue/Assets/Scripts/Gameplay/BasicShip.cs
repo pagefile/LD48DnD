@@ -111,6 +111,12 @@ public class BasicShip : MonoBehaviour, IBasicShipControl
         }
         _fuelForWarp = 0f;
     }
+
+    public GameObject GetControlled()
+    {
+        return gameObject;
+    }
+
     #endregion
 
     #region Unity Functions
@@ -154,6 +160,7 @@ public class BasicShip : MonoBehaviour, IBasicShipControl
         }
         float accel = _engine.Acceleration * _throttle;
         _rb.AddForce(transform.forward * accel, ForceMode.Acceleration);
+        _rb.AddForce(transform.right * _engine.TurnAcceleration * _latAxis, ForceMode.Acceleration);
 
         // I don't understand what is happening here, but this is the only form of the function call that
         // gives me what I want. Using ForceMode.Impulse or ForceMode.Force causes the parent connstraint on
@@ -164,8 +171,9 @@ public class BasicShip : MonoBehaviour, IBasicShipControl
         // Really is a case of "My code works and I don't understand why". If it works don't
         // fix it?
         // TODO: Test the more "proper" AddTorque call with the new OffsetCamera component
-        float turn = _engine.TurnAcceleration * _latAxis;
-        _rb.AddTorque(Vector3.up * _latAxis * _rb.mass * Time.deltaTime, ForceMode.Acceleration);
+        // MOAR TODO: Dampen turning as it approaches the mouse curser position
+        float turn = _engine.TurnAcceleration * _turnAxis;
+        _rb.AddTorque(Vector3.up * turn * _rb.mass * Time.deltaTime, ForceMode.Acceleration);
 
         // Process "Full Stop" physics (more like flight assist/E-Brake)
         if(_fullStop)

@@ -5,11 +5,13 @@ using UnityEngine;
 public class PlayerShipController : MonoBehaviour
 {
     private IBasicShipControl _ship;
+    private Camera _camera;
 
     // Start is called before the first frame update
     void Start()
     {
         _ship = GetComponent<IBasicShipControl>();
+        _camera = Camera.main;
     }
 
     // Update is called once per frame
@@ -19,6 +21,19 @@ public class PlayerShipController : MonoBehaviour
         {
             return;
         }
+
+        Ray mouseRay = _camera.ScreenPointToRay(new Vector3(Input.mousePosition.x, Input.mousePosition.y));
+        Plane playPlane = new Plane(Vector3.up, _ship.GetControlled().transform.position);
+        float distance = 0f;
+        if(playPlane.Raycast(mouseRay, out distance))
+        {
+            Vector3 mousePos = mouseRay.origin + mouseRay.direction * distance;
+            Vector3 toMousePos = mousePos - _ship.GetControlled().transform.position;
+            float direction = Vector3.Dot(toMousePos.normalized, _ship.GetControlled().transform.right);
+            Debug.Log(direction);
+            _ship.Turn(Mathf.Clamp(direction, -1f, 1f));
+        }
+
 
         _ship.Thrust(Input.GetAxis("Vertical"));
         _ship.LateralThrust(Input.GetAxis("Horizontal"));
