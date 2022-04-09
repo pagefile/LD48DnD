@@ -22,6 +22,7 @@ namespace Pagefile.Gameplay
         #endregion
 
         #region Private Variables
+        private AudioSource _as = default;
         private int CurrentAmmo = 0;
         private bool TriggerDown = false;
         private float CycleTime = 0.0f;
@@ -46,6 +47,7 @@ namespace Pagefile.Gameplay
 	    // Use this for initialization
 	    void Start()
         {
+            _as = GetComponent<AudioSource>();
 		    if(MagazineSize == 0)
             {
                 AmmoDecrementer = 0;
@@ -69,6 +71,8 @@ namespace Pagefile.Gameplay
                 {
                     TriggerReset = false;
                 }
+                _as.pitch = 1f + Random.Range(0.0f, 0.2f);
+                _as.Play();
             }
 	    }
         #endregion Unity Functions

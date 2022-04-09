@@ -14,5 +14,5 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _name: Stock Engine
   _acceleration: 5
-  _turnAcceleration: 5
+  _turnAcceleration: 1
   _assistRating: 0.5

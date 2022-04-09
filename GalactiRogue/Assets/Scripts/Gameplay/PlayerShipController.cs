@@ -27,11 +27,30 @@ public class PlayerShipController : MonoBehaviour
         float distance = 0f;
         if(playPlane.Raycast(mouseRay, out distance))
         {
+            // TODO: This is very hacky
+            Rigidbody rb = _ship.GetControlled().GetComponent<Rigidbody>();
+            BasicShip ship = _ship.GetControlled().GetComponent<BasicShip>();
             Vector3 mousePos = mouseRay.origin + mouseRay.direction * distance;
             Vector3 toMousePos = mousePos - _ship.GetControlled().transform.position;
-            float direction = Vector3.Dot(toMousePos.normalized, _ship.GetControlled().transform.right);
-            Debug.Log(direction);
-            _ship.Turn(Mathf.Clamp(direction, -1f, 1f));
+            toMousePos.Normalize();
+            float angleBetween = Vector3.Angle(toMousePos, _ship.GetControlled().transform.forward);
+            float timeToMouse = angleBetween / (Mathf.Abs(rb.angularVelocity.y * Mathf.Rad2Deg));
+            //Debug.Log(timeToMouse + " " + Mathf.Abs(rb.angularVelocity.y * Mathf.Rad2Deg) / ship.Engine.TurnAcceleration);
+            //Debug.Log(Mathf.Abs(rb.angularVelocity.y * Mathf.Rad2Deg) / ship.Engine.TurnAcceleration);
+            float direction = Vector3.Dot(toMousePos, _ship.GetControlled().transform.right);
+            //if(timeToMouse <= Mathf.Abs(rb.angularVelocity.y * Mathf.Rad2Deg) / ship.Engine.TurnAcceleration)
+            //{
+            //    _ship.Turn(-Mathf.Sign(direction));
+            //}
+            if(Mathf.Abs(rb.angularVelocity.y * Mathf.Rad2Deg) * Time.fixedDeltaTime >= angleBetween)
+            {
+                ship.GetControlled().transform.LookAt(mousePos);
+                rb.angularVelocity = Vector3.zero;
+            }
+            else
+            {
+                _ship.Turn(Mathf.Sign(direction));
+            }
         }
 
 

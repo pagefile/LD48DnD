@@ -16,6 +16,7 @@ public class BasicShip : MonoBehaviour, IBasicShipControl
     private float _minimumJump = 100f; // measured in units of fuel
     [SerializeField]
     private float _maximumJump = 200f; // measured in units of fuel
+    public EngineStats Engine { get { return _engine; } }
 
     private Rigidbody _rb;
     private float _throttle = 0f;
@@ -125,6 +126,8 @@ public class BasicShip : MonoBehaviour, IBasicShipControl
     {
         _rb = GetComponent<Rigidbody>();
         _mainWeapon = GetComponent<Pagefile.Gameplay.Gun>();
+        // Really stupid this isn't a setting somewhere
+        _rb.maxAngularVelocity = 20f;
     }
 
     // Update is called once per frame
@@ -173,7 +176,7 @@ public class BasicShip : MonoBehaviour, IBasicShipControl
         // TODO: Test the more "proper" AddTorque call with the new OffsetCamera component
         // MOAR TODO: Dampen turning as it approaches the mouse curser position
         float turn = _engine.TurnAcceleration * _turnAxis;
-        _rb.AddTorque(Vector3.up * turn * _rb.mass * Time.deltaTime, ForceMode.Acceleration);
+        _rb.AddTorque(Vector3.up * turn * _rb.mass, ForceMode.Force);
 
         // Process "Full Stop" physics (more like flight assist/E-Brake)
         if(_fullStop)
