@@ -27,7 +27,7 @@ public class GameManager : MonoBehaviour
         DontDestroyOnLoad(Camera.main);
         DontDestroyOnLoad(gameObject);
         MessagePublisher.Instance.Subscribe(typeof(WarpSuccessMessage), WarpSuccessfulHandler);
-        float anomalyAngle = Random.value;
+        float anomalyAngle = Random.value * (Mathf.PI * 2f);
         _anomalyPosition.x = Mathf.Sin(anomalyAngle);
         _anomalyPosition.y = Mathf.Cos(anomalyAngle);
         _anomalyPosition *= _anomalyDistance;
