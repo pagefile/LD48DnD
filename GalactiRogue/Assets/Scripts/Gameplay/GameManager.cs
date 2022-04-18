@@ -11,8 +11,14 @@ public class GameManager : MonoBehaviour
     private BasicShip _player = default;
     [SerializeField]
     private SectorData _sector = default;
+    [SerializeField]
+    private float _anomalyDistance = 100f;
 
     private int[,] sectorGrid = null;
+
+    // Galactic positions of the player and anomaly in light years
+    private Vector3 _playerPosition = Vector3.zero;
+    private Vector3 _anomalyPosition = Vector3.zero;
 
     // Start is called before the first frame update
     void Start()
@@ -21,6 +27,11 @@ public class GameManager : MonoBehaviour
         DontDestroyOnLoad(Camera.main);
         DontDestroyOnLoad(gameObject);
         MessagePublisher.Instance.Subscribe(typeof(WarpSuccessMessage), WarpSuccessfulHandler);
+        float anomalyAngle = Random.value;
+        _anomalyPosition.x = Mathf.Sin(anomalyAngle);
+        _anomalyPosition.y = Mathf.Cos(anomalyAngle);
+        _anomalyPosition *= _anomalyDistance;
+        _playerPosition = Vector3.zero;
         LoadNextSector();
     }
 
