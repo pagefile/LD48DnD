@@ -22,7 +22,9 @@ namespace Pagefile.Systems
         #region Private Members
         private Dictionary<global::System.Type, PublishedMessageHandler> _messageHandlers = new Dictionary<global::System.Type, PublishedMessageHandler>();
         // These messages are handled at the end of the frame
-        private List<Message> _messageQueue = new List<Message>();
+        private Queue<Message> _messageQueue = new Queue<Message>();
+        // _messageQueue is passed to _handlerQueue to keep infinite messages from piling up during message handling
+        private Queue<Message> _handlerQueue = default;
         #endregion
 
         // TODO: Maybe switch to use .NET's Lazy<> class? Do I need to worry about thread
@@ -73,7 +75,7 @@ namespace Pagefile.Systems
         // Adds a message to be processed in LateUpdate()
         public void PublishMessage(Message msg)
         {
-            _messageQueue.Add(msg);
+            _messageQueue.Enqueue(msg);
         }
 
         // Processes a message immediately
@@ -88,11 +90,22 @@ namespace Pagefile.Systems
         #region Private Methods
         private void ProcessMessages()
         {
-            foreach(Message msg in _messageQueue)
+            Message msg = default;
+            _handlerQueue = _messageQueue;
+            _messageQueue = new Queue<Message>();   // If performance becomes an issue we can keep three queues around to swap between
+            while(_handlerQueue.Count > 0)  // I can't do clever things like while(_messageQueue.TryDequeue(msg)) because Unity doesn't have that method >:(
             {
+                msg = _handlerQueue.Dequeue();
                 PublishedMessageHandler handler;
                 _messageHandlers.TryGetValue(msg.MessageType, out handler);
-                handler?.Invoke(msg);
+                try
+                {
+                    handler?.Invoke(msg);
+                }
+                catch(System.Exception e)
+                {
+                    Debug.LogError($"Exception during message handling in {e.TargetSite}!\n{e.Message}\n{e.StackTrace}");
+                }
             }
             _messageQueue.Clear();
         }
