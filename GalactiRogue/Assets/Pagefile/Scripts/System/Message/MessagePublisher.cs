@@ -98,7 +98,14 @@ namespace Pagefile.Systems
                 msg = _handlerQueue.Dequeue();
                 PublishedMessageHandler handler;
                 _messageHandlers.TryGetValue(msg.MessageType, out handler);
-                handler?.Invoke(msg);
+                try
+                {
+                    handler?.Invoke(msg);
+                }
+                catch(System.Exception e)
+                {
+                    Debug.LogError($"Exception during message handling in {e.TargetSite}!\n{e.Message}\n{e.StackTrace}");
+                }
             }
             _messageQueue.Clear();
         }
